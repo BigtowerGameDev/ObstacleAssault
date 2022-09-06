@@ -23,21 +23,39 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
-	int32 myInt = 99;
+private:
+	enum DirectionAxis {UP = 1, DOWN, RIGHT, LEFT, FORWARD, BACKWARD};
 
-	UPROPERTY(EditAnywhere)
-	float myFloat = 5.99;
+	FVector InitPos;
 
-	UPROPERTY(EditAnywhere)
-	bool isMoving = false;
+	FVector MyVelocity = FVector(0,0,0);
 
-	UPROPERTY(EditAnywhere)
-	float fValA = 0;
+	UPROPERTY(EditAnywhere, Category = "Moving Platform")
+	float speed = 100;
 
-	UPROPERTY(EditAnywhere)
-	float fValB = 0;
+	UPROPERTY(EditAnywhere, Category = "Moving Platform")
+	float maxDistance = 0;
 
-	UPROPERTY(EditAnywhere)
-	float result = 0;
+	bool changeDir = false;
+
+	UPROPERTY(EditAnywhere, Category = "Moving Platform")
+	int dirAxis = FORWARD;
+
+	UPROPERTY(VisibleAnywhere, Category = "Moving Platform")
+	float distanceMoved;
+
+	UPROPERTY(EditAnywhere, Category = "Rotating Platform")
+	bool rotate = false;
+
+	UPROPERTY(EditAnywhere, Category = "Rotating Platform")
+	bool clockWise = false;
+
+	UPROPERTY(EditAnywhere, Category = "Rotating Platform")
+	FRotator rotationVelocity;
+
+	void MovePlatform(float DeltaTime);
+
+	void RotatePlatform(float DeltaTime);
+
+	float DistanceMoved() const;
 };
